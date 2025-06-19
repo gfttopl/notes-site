@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cat Notes</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #0A0A0A;
+      font-family: Arial, sans-serif;
+      color: #CCCCCC;
+      height: 100%;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .logo {
+      width: clamp(200px, 60%, 600px);
+      max-width: 90vw;
+      margin-bottom: 20px;
+    }
+
+
+    .ovalphoto {
+      width: 1000px; height: 50px;
+      max-width: 75vw;
+      margin-bottom: -4px;
+    }
+
+
+    .note-box {
+      border: 2px solid white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 80vw;
+      max-width: 600px;
+      min-height: 200px;
+      background-color: rgba(255, 255, 255, 0.02);
+      color: #CCCCCC;
+      resize: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .oval-input {
+      margin-top: 20px;
+      width: 80vw;
+      max-width: 600px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .dots::after {
+      content: '.';
+      animation: dots 1s infinite steps(4);
+    }
+
+    @keyframes dots {
+      0% { content: '.'; }
+      25% { content: '..'; }
+      50% { content: '...'; }
+      75% { content: ''; }
+    }
+
+    @media (max-width: 600px) {
+      .note-box {
+        font-size: 14px;
+      }
+      .oval-input {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logo.png" alt="Cat Logo" class="logo" />
+    <textarea class="note-box" id="notes" placeholder="Введіть нотатку"></textarea>
+    <div class="oval-input">
+      <img src="1.gif" alt="gif" class="ovalphoto" />
+    </div>
+  </div>
+
+  <script>
+    const textarea = document.getElementById('notes');
+
+    // Завантаження нотатки з localStorage
+    if (localStorage.getItem('catNotes')) {
+      textarea.value = localStorage.getItem('catNotes');
+    }
+
+    // Збереження нотатки при вводі
+    textarea.addEventListener('input', () => {
+      localStorage.setItem('catNotes', textarea.value);
+    });
+
+    // Для стирання з пристрою вручну (через консоль або додати кнопку)
+    window.clearNotes = () => {
+      localStorage.removeItem('catNotes');
+      textarea.value = '';
+    }
+  </script>
+</body>
+</html>
